@@ -4,6 +4,7 @@ import asyncio
 import logging
 import boto3
 import youtube_dl
+import os
 
 # Suppress noise about console usage from errors
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -58,6 +59,8 @@ client = commands.Bot(command_prefix=commands.when_mentioned_or('$'))
 def get_s3_client():
     return boto3.client(
         's3'
+        , aws_access_key_id=os.getenv('KEYSPERRY_AWS_KEY')
+        , aws_secret_access_key=os.getenv('KESYPERRY_AWS_SECRET')
         , region_name='eu-west-3')
 
 @client.event
@@ -110,4 +113,4 @@ async def play(ctx, user, *args):
     await ctx.send('Now playing: {}'.format(player.title))
 
 
-client.run('token', bot=True)
+client.run(os.getenv('KEYSPERRY_DISCORD_BOT_TOKEN'), bot=True)
