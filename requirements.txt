@@ -1,3 +1,5 @@
 discord
 pynacl
 boto3
+youtube-dl
+discord[voice]
